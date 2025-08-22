@@ -1,35 +1,86 @@
-TSC Bank - A Full-Stack Dockerized Ethereum DApp
-A complete decentralized application that provides a simple banking interface on the Ethereum blockchain. This project includes a Solidity smart contract, a web-based frontend, and a fully containerized development environment using Docker for easy setup and portability.
+<div align="center">
+<br />
+<h1>🏦 TSC Bank - A Full-Stack Dockerized Ethereum DApp</h1>
+<strong>A complete decentralized application with a containerized development environment for easy setup and portability.</strong>
+<br />
+<br />
 
-Features
-Dockerized Environment: The entire development stack is encapsulated in Docker containers, ensuring a consistent and hassle-free setup on any machine.
+<p align="center">
+<a href="https://github.com/Ciph3rN0va/Tsc-Bank-Dapp/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+<img src="https://img.shields.io/badge/Solidity-^0.8.19-lightgrey.svg" alt="Solidity">
+<img src="https://img.shields.io/badge/Truffle-v5.11.5-green.svg" alt="Truffle">
+<img src="https://img.shields.io/badge/Docker-20.10-blue.svg" alt="Docker">
+<img src="https://img.shields.io/badge/Node.js-18.x-green.svg" alt="Node.js">
+</p>
+</div>
 
-Smart Contract Banking: A secure TSCBank.sol smart contract allows users to deposit, withdraw, and check their Ether balance.
+<!-- You can add a screenshot of your DApp here! -->
 
-Web3 Frontend: A clean, responsive user interface built with HTML, CSS, and vanilla JavaScript.
+<!--  -->
 
-MetaMask Integration: Connects seamlessly with the MetaMask browser wallet for user authentication and transaction signing.
+📖 Table of Contents
+About the Project
 
-Local Blockchain: Utilizes Ganache for a personal, local blockchain instance, perfect for development and testing without real-world costs.
+✨ Features
 
-Tech Stack
-Blockchain: Solidity, Truffle Suite (Truffle, Ganache)
+🛠️ Tech Stack
 
-Frontend: HTML, Tailwind CSS, JavaScript, Web3.js
+🚀 Getting Started
 
-Environment: Docker, Ubuntu 22.04, Node.js
+Prerequisites
 
-Editor: VS Code (served via code-server)
+Installation & Setup
 
-Getting Started
+Usage
+
+Project Structure
+
+License
+
+🧐 About the Project
+This project provides a complete, end-to-end solution for developing and testing Ethereum-based decentralized applications. It solves the common problem of complex environment setup by encapsulating the entire toolchain within Docker. The repository includes a simple banking smart contract and a responsive web interface to demonstrate the full development lifecycle.
+
+✨ Features
+🐳 Dockerized Environment: One-command setup for a consistent and portable development environment on any machine.
+
+📄 Smart Contract Banking: A secure TSCBank.sol contract allows users to deposit, withdraw, and check their Ether balance.
+
+💻 Web3 Frontend: A clean and responsive user interface built with HTML, Tailwind CSS, and vanilla JavaScript.
+
+🦊 MetaMask Integration: Connects seamlessly with the MetaMask browser wallet for user authentication and transaction signing.
+
+⛓️ Local Blockchain: Utilizes Ganache for a personal blockchain instance, perfect for rapid development and testing without real-world costs.
+
+🛠️ Tech Stack
+Category
+
+Technology
+
+Blockchain
+
+Solidity, Truffle Suite (Truffle, Ganache)
+
+Frontend
+
+HTML, Tailwind CSS, JavaScript, Web3.js
+
+Environment
+
+Docker, Ubuntu 22.04, Node.js
+
+Editor
+
+VS Code (served via code-server)
+
+🚀 Getting Started
 Follow these instructions to get the project up and running on your local machine.
 
 Prerequisites
-Docker Desktop: Make sure you have Docker Desktop installed and running on your system. Download Docker
+Docker Desktop: Ensure Docker is installed and running. Download Here
 
-Git: Required for cloning the repository. Download Git
+Git: Required for cloning the repository. Download Here
 
-Web Browser: A modern web browser like Chrome or Firefox with the MetaMask extension installed.
+Web Browser: A modern browser with the MetaMask extension installed.
 
 Installation & Setup
 Clone the Repository
@@ -38,80 +89,52 @@ git clone https://github.com/Ciph3rN0va/Tsc-Bank-Dapp.git
 cd Tsc-Bank-Dapp
 
 Build the Docker Images
-This project uses a two-stage build process.
+This project uses a two-stage build process for a clean and efficient final image.
 
-# 1. Build the base image with VS Code and system tools
+# 1. Build the base image with system tools
 docker build -t ethereum-dev-base -f Dockerfile.base .
 
-# 2. Build the final DApp environment with Truffle and Ganache
+# 2. Build the final DApp environment image
 docker build -t ethereum-dapp-env -f Dockerfile.dapp .
 
 Run the Development Container
-This command starts the container and maps the necessary ports for VS Code and Ganache.
+This command starts the container and maps the necessary ports.
 
 docker run -it --rm -p 8080:8080 -p 8545:8545 --name tsc-bank-dev ethereum-dapp-env
 
-Note: The terminal will now be occupied by the container's main process. You will interact with the environment through your browser.
+Launch the Dev Environment
 
-Launch the Development Environment
-
-Open your web browser and navigate to http://localhost:8080. You will see a fully functional VS Code editor.
+Open your browser and go to http://localhost:8080 to access the VS Code editor.
 
 In the VS Code UI, open a new terminal (Terminal > New Terminal).
 
-Start the Local Blockchain
-In the new VS Code terminal, start Ganache.
+Start Ganache & Deploy Contract
+
+In the VS Code terminal, start the local blockchain:
 
 ganache -h 0.0.0.0 &
 
-Keep the list of private keys handy; you'll need one for MetaMask.
-
-Deploy the Smart Contract
-In the same terminal, deploy the TSCBank contract.
+Deploy the smart contract. Copy the contract address from the output.
 
 truffle migrate --reset
 
-Copy the contract address from the output.
+Configure and Launch the DApp
 
-Configure the DApp
+In the VS Code file explorer, open app.js and paste the contract address into the contractAddress variable.
 
-In the VS Code file explorer, open app.js.
-
-Paste the contract address you just copied into the contractAddress variable.
-
-The contractABI is already included.
-
-Launch the DApp Frontend
-Start the web server to serve the DApp.
+Start the frontend server:
 
 npx serve
 
-The server will typically be available at http://localhost:3000.
+🖥️ Usage
+Configure MetaMask: Add a custom network pointing to your local Ganache instance (http://127.0.0.1:8545, Chain ID 1337) and import an account using a private key from the Ganache output.
 
-How to Use the DApp
-Configure MetaMask
+Connect and Interact: Navigate to the DApp URL (e.g., http://localhost:3000), connect your wallet, and start depositing and withdrawing Ether.
 
-Open MetaMask and add a new custom network with the following details:
+📁 Project Structure
+<details>
+<summary>Click to view the folder structure</summary>
 
-Network Name: Ganache Local
-
-New RPC URL: http://127.0.0.1:8545
-
-Chain ID: 1337
-
-Currency Symbol: ETH
-
-Import an account using one of the private keys from the Ganache terminal output.
-
-Connect and Interact
-
-Open a new browser tab and navigate to the DApp URL (e.g., http://localhost:3000).
-
-Click "Connect Wallet" and approve the connection in MetaMask.
-
-You can now deposit and withdraw Ether using the interface. Each transaction will require confirmation in MetaMask.
-
-Project Structure
 Tsc-Bank-Dapp/
 ├── contracts/          # Solidity smart contracts
 │   └── TSCBank.sol
@@ -124,8 +147,11 @@ Tsc-Bank-Dapp/
 │   └── app.js          # DApp logic
 ├── Dockerfile.base     # Dockerfile for the base environment
 ├── Dockerfile.dapp     # Dockerfile for the DApp environment
+├── .gitignore          # Files to be ignored by Git
 ├── truffle-config.js   # Truffle project configuration
 └── README.md           # This file
 
-License
+</details>
+
+📜 License
 This project is licensed under the MIT License. See the LICENSE file for details.
