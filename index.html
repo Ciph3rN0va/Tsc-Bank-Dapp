@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSC Bank DApp</title>
+    <!-- Tailwind CSS for base styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Our Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-md bg-gray-800 rounded-2xl shadow-2xl p-8 space-y-6 transform transition-all duration-500">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-cyan-400">🏦 TSC Bank</h1>
+            <p id="accountStatus" class="text-gray-400 mt-2">Please connect your wallet.</p>
+        </div>
+
+        <!-- Connect Button -->
+        <button id="connectButton" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+            Connect Wallet
+        </button>
+
+        <!-- Main DApp Interface (hidden by default) -->
+        <div id="dappInterface" class="hidden space-y-6">
+            <!-- Balance Display -->
+            <div class="bg-gray-700 p-6 rounded-lg text-center">
+                <h2 class="text-lg font-semibold text-gray-300">Your Bank Balance</h2>
+                <p class="text-4xl font-bold text-cyan-400 mt-2"><span id="balanceDisplay">0.00</span> ETH</p>
+                <button id="refreshBalance" class="mt-4 text-sm text-cyan-400 hover:underline">Refresh</button>
+            </div>
+
+            <!-- Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Deposit -->
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h3 class="font-semibold mb-2">Deposit Ether</h3>
+                    <input type="text" id="depositAmount" placeholder="Amount in ETH" class="w-full bg-gray-800 border border-gray-600 rounded-md p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none text-white">
+                    <button id="depositButton" class="w-full mt-3 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Deposit</button>
+                </div>
+
+                <!-- Withdraw -->
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h3 class="font-semibold mb-2">Withdraw Ether</h3>
+                    <input type="text" id="withdrawAmount" placeholder="Amount in ETH" class="w-full bg-gray-800 border border-gray-600 rounded-md p-2 focus:ring-2 focus:ring-cyan-500 focus:outline-none text-white">
+                    <button id="withdrawButton" class="w-full mt-3 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Withdraw</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Area -->
+        <div class="h-10 text-center pt-4">
+             <div id="loader" class="loader hidden"></div>
+             <p id="statusMessage" class="text-blue-400"></p>
+        </div>
+    </div>
+
+    <!-- **FIX HERE**: Include the Web3.js library BEFORE our app.js script -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+    <!-- Our Custom JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
