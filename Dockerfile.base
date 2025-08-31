@@ -1,0 +1,53 @@
+#
+# Dockerfile for a VS Code-based Ethereum Development Environment
+#
+
+# 1a. Use Ubuntu 22.04 as the base OS
+FROM ubuntu:22.04
+
+# Avoid interactive prompts during installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update package lists and install essential utilities
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    git \
+    vim \
+    build-essential \
+    wget \
+    unzip \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# 1b. Install and configure OpenJDK 11 (useful for other Java-based tools)
+RUN apt-get update && apt-get install -y openjdk-11-jdk \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set JAVA_HOME environment variable
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV PATH="$JAVA_HOME/bin:${PATH}"
+
+# --- Install VS Code (via code-server) ---
+# This provides a web-based version of VS Code, ideal for Docker.
+RUN wget https://github.com/coder/code-server/releases/download/v4.16.1/code-server-4.16.1-linux-amd64.tar.gz -O /tmp/code-server.tar.gz && \
+    tar -xzf /tmp/code-server.tar.gz -C /opt/ && \
+    rm /tmp/code-server.tar.gz && \
+    ln -s /opt/code-server-4.16.1-linux-amd64/bin/code-server /usr/local/bin/code-server
+
+# 1e & 1f. Install solc (Solidity Compiler) and other Ethereum tools
+# Add the official Ethereum Personal Package Archive (PPA)
+RUN add-apt-repository -y ppa:ethereum/ethereum && \
+    apt-get update && \
+    apt-get install -y solc && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set a default working directory inside the container
+WORKDIR /root/dev
+
+# Expose the default port for code-server
+EXPOSE 8080
+
+# The default command launches code-server without authentication, accessible from anywhere.
+# It will open the current working directory (/root/dev).
+CMD ["code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none"]
+

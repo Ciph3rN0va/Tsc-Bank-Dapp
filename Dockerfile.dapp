@@ -1,0 +1,28 @@
+#
+# Dockerfile for a complete DApp Development Environment
+#
+
+# Use the base image we created in the previous step
+FROM ethereum-dev-base:latest
+
+# 3a. Install NodeJS
+# We'll use the NodeSource repository to get a recent version of Node.js
+RUN apt-get update && apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
+
+# 3b, 3c, 3g. Install Truffle and Ganache
+# Ganache CLI was formerly known as testrpc
+RUN npm install -g truffle ganache
+
+# 3h. Expose the default ports for Ganache and a typical web DApp
+EXPOSE 8545 3000
+
+# Set the working directory
+WORKDIR /root/dapp
+
+# The default command when the container starts is to open a bash shell
+# We override this with the CMD from the base image later when running the container
+CMD ["/bin/bash"]
+
